@@ -115,7 +115,7 @@ EditableGrid.prototype.initializeGrid = function()
 		};
 
 		// render for the action column
-		setCellRenderer("action", new CellRenderer({render: function(cell, value) {
+		setCellRenderer("操作", new CellRenderer({render: function(cell, value) {
 			// this action will remove the row, so first find the ID of the row containing this cell
 			var rowId = editableGrid.getRowId(cell.rowIndex);
 
