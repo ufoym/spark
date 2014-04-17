@@ -14,7 +14,7 @@ var editableGrid = new EditableGrid("DemoGridFull", {
 	enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
 	editmode: "absolute", // change this to "fixed" to test out editorzone, and to "static" to get the old-school mode
 	editorzoneid: "edition", // will be used only if editmode is set to "fixed"
-	pageSize: 100,
+	pageSize: 20,
 	maxBars: 10
 });
 
