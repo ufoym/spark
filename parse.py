@@ -42,7 +42,7 @@ with open(fn_json, 'w') as f:
     obj['metadata'].append({
             'name':u'操作',
             'label':u'操作',
-            'datatype':'string',
+            'datatype':'html',
             'editable':False
         })
     json.dump(obj, f)
