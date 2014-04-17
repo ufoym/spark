@@ -90,11 +90,11 @@ EditableGrid.prototype.duplicate = function(rowIndex)
 {
 	// copy values from given row
 	var values = this.getRowValues(rowIndex);
-	values['name'] = values['name'] + ' (copy)';
 
 	// get id for new row (max id + 1)
 	var newRowId = 0;
 	for (var r = 0; r < this.getRowCount(); r++) newRowId = Math.max(newRowId, parseInt(this.getRowId(r)) + 1);
+	values['编号'] = newRowId + '';
 
 	// add new row
 	this.insertAfter(rowIndex, newRowId, values);
