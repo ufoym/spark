@@ -1,21 +1,9 @@
-/*
- * examples/full/javascript/demo.js
- *
- * This file is part of EditableGrid.
- * http://editablegrid.net
- *
- * Copyright (c) 2011 Webismymind SPRL
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://editablegrid.net/license
- */
-
 // create our editable grid
 var editableGrid = new EditableGrid("DemoGridFull", {
 	enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
 	editmode: "absolute", // change this to "fixed" to test out editorzone, and to "static" to get the old-school mode
 	editorzoneid: "edition", // will be used only if editmode is set to "fixed"
-	pageSize: 20,
-	maxBars: 10
+	pageSize: 20
 });
 
 // helper function to display a message
@@ -111,15 +99,15 @@ EditableGrid.prototype.initializeGrid = function()
 		modelChanged = function(rowIndex, columnIndex, oldValue, newValue, row) {
 			displayMessage("Value for '" + this.getColumnName(columnIndex) + "' in row " + this.getRowId(rowIndex) + " has changed from '" + oldValue + "' to '" + newValue + "'");
 			// if (this.getColumnName(columnIndex) == "continent") this.setValueAt(rowIndex, this.getColumnIndex("country"), ""); // if we changed the continent, reset the country
-   	    	this.renderCharts();
+   	    	// this.renderCharts();
 		};
 
 		// update paginator whenever the table is rendered (after a sort, filter, page change, etc.)
 		tableRendered = function() { this.updatePaginator(); };
 
-		// update charts when the table is sorted or filtered
-		tableFiltered = function() { this.renderCharts(); };
-		tableSorted = function() { this.renderCharts(); };
+		// // update charts when the table is sorted or filtered
+		// tableFiltered = function() { this.renderCharts(); };
+		// tableSorted = function() { this.renderCharts(); };
 
 		rowSelected = function(oldRowIndex, newRowIndex) {
 			if (oldRowIndex < 0) displayMessage("Selected row '" + this.getRowId(newRowIndex) + "'");
@@ -131,8 +119,8 @@ EditableGrid.prototype.initializeGrid = function()
 			// this action will remove the row, so first find the ID of the row containing this cell
 			var rowId = editableGrid.getRowId(cell.rowIndex);
 
-			cell.innerHTML = "<a onclick=\"if (confirm('Are you sure you want to delete this person ? ')) { editableGrid.remove(" + cell.rowIndex + "); editableGrid.renderCharts(); } \" style=\"cursor:pointer\">" +
-							 "<img src=\"" + image("delete.png") + "\" border=\"0\" alt=\"delete\" title=\"Delete row\"/></a>";
+			cell.innerHTML = "<a onclick=\"if (confirm('确定要删除这一项? ')) { editableGrid.remove(" + cell.rowIndex + "); } \" style=\"cursor:pointer\">" +
+							 "<img src=\"" + image("delete.png") + "\" border=\"0\" alt=\"delete\" title=\"删除\"/></a>";
 
 			// cell.innerHTML+= "&nbsp;<a onclick=\"editableGrid.duplicate(" + cell.rowIndex + ");\" style=\"cursor:pointer\">" +
 			//  "<img src=\"" + image("duplicate.png") + "\" border=\"0\" alt=\"duplicate\" title=\"Duplicate row\"/></a>";
@@ -150,7 +138,7 @@ EditableGrid.prototype.initializeGrid = function()
 
 		// bind page size selector
 		$("#pagesize").val(pageSize).change(function() { editableGrid.setPageSize($("#pagesize").val()); });
-		$("#barcount").val(maxBars).change(function() { editableGrid.maxBars = $("#barcount").val(); editableGrid.renderCharts(); });
+		// $("#barcount").val(maxBars).change(function() { editableGrid.maxBars = $("#barcount").val(); editableGrid.renderCharts(); });
 	}
 };
 
@@ -214,12 +202,12 @@ EditableGrid.prototype.onloadHTML = function(tableId)
 // 	this.insertAfter(rowIndex, newRowId, values);
 // };
 
-// function to render our two demo charts
-EditableGrid.prototype.renderCharts = function()
-{
-	this.renderBarChart("barchartcontent", 'Age per person' + (this.getRowCount() <= this.maxBars ? '' : ' (first ' + this.maxBars + ' rows out of ' + this.getRowCount() + ')'), '教师', { limit: this.maxBars, bar3d: false, rotateXLabels: this.maxBars > 10 ? 270 : 0 });
-	this.renderPieChart("piechartcontent", 'Country distribution', '教师', '教师');
-};
+// // function to render our two demo charts
+// EditableGrid.prototype.renderCharts = function()
+// {
+// 	this.renderBarChart("barchartcontent", 'Age per person' + (this.getRowCount() <= this.maxBars ? '' : ' (first ' + this.maxBars + ' rows out of ' + this.getRowCount() + ')'), '教师', { limit: this.maxBars, bar3d: false, rotateXLabels: this.maxBars > 10 ? 270 : 0 });
+// 	this.renderPieChart("piechartcontent", 'Country distribution', '教师', '教师');
+// };
 
 // function to render the paginator control
 EditableGrid.prototype.updatePaginator = function()
