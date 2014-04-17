@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 fn_in = 'in.csv'
 fn_json= 'out.json'
@@ -16,7 +18,7 @@ with open(fn_in, 'r') as f:
             terms = line.split(',')
             terms = [terms[s].strip() for s in select]
             if ''.join(terms) != '':
-                entry = {'action': ''}
+                entry = {u'操作': '', u'编号': i}
                 for col, term in zip(cols, terms):
                     entry[col] = term
                 data.append({'id': i, 'values': entry})
@@ -28,6 +30,6 @@ with open(fn_json, 'w') as f:
             'label':col,
             'datatype':'string',
             'editable':True
-        } for col in cols + ['action']],
+        } for col in [u'编号'] + cols + [u'操作']],
         'data': data
     }, f)

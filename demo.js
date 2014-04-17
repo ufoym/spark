@@ -97,7 +97,7 @@ EditableGrid.prototype.initializeGrid = function()
 
 		// register the function that will handle model changes
 		modelChanged = function(rowIndex, columnIndex, oldValue, newValue, row) {
-			displayMessage("已将第" + this.getRowId(rowIndex) + "行的" + this.getColumnName(columnIndex) + "栏目由<strong>" + oldValue + "</strong>改为<strong>" + newValue + "</strong>");
+			displayMessage("已将编号为" + this.getRowId(rowIndex) + "的条目的<strong>" + this.getColumnName(columnIndex) + "</strong>由<strong>" + oldValue + "</strong>改为<strong>" + newValue + "</strong>");
 			// if (this.getColumnName(columnIndex) == "continent") this.setValueAt(rowIndex, this.getColumnIndex("country"), ""); // if we changed the continent, reset the country
    	    	// this.renderCharts();
 		};
@@ -110,7 +110,7 @@ EditableGrid.prototype.initializeGrid = function()
 		// tableSorted = function() { this.renderCharts(); };
 
 		rowSelected = function(oldRowIndex, newRowIndex) {
-			displayMessage("正在编辑第" + this.getRowId(newRowIndex) + "行");
+			displayMessage("正在编辑编号为" + this.getRowId(newRowIndex) + "的条目");
 		};
 
 		// render for the action column
@@ -141,17 +141,17 @@ EditableGrid.prototype.initializeGrid = function()
 	}
 };
 
-EditableGrid.prototype.onloadXML = function(url)
-{
-	// register the function that will be called when the XML has been fully loaded
-	this.tableLoaded = function() {
-		displayMessage("Grid loaded from XML: " + this.getRowCount() + " row(s)");
-		this.initializeGrid();
-	};
+// EditableGrid.prototype.onloadXML = function(url)
+// {
+// 	// register the function that will be called when the XML has been fully loaded
+// 	this.tableLoaded = function() {
+// 		displayMessage("Grid loaded from XML: " + this.getRowCount() + " row(s)");
+// 		this.initializeGrid();
+// 	};
 
-	// load XML URL
-	this.loadXML(url);
-};
+// 	// load XML URL
+// 	this.loadXML(url);
+// };
 
 EditableGrid.prototype.onloadJSON = function(url)
 {
