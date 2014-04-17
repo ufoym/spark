@@ -97,7 +97,7 @@ EditableGrid.prototype.initializeGrid = function()
 
 		// register the function that will handle model changes
 		modelChanged = function(rowIndex, columnIndex, oldValue, newValue, row) {
-			displayMessage("Value for '" + this.getColumnName(columnIndex) + "' in row " + this.getRowId(rowIndex) + " has changed from '" + oldValue + "' to '" + newValue + "'");
+			displayMessage("已将第" + this.getRowId(rowIndex) + "行的" + this.getColumnName(columnIndex) + "栏目由<strong>" + oldValue + "</strong>改为<strong>" + newValue + "</strong>");
 			// if (this.getColumnName(columnIndex) == "continent") this.setValueAt(rowIndex, this.getColumnIndex("country"), ""); // if we changed the continent, reset the country
    	    	// this.renderCharts();
 		};
@@ -110,8 +110,7 @@ EditableGrid.prototype.initializeGrid = function()
 		// tableSorted = function() { this.renderCharts(); };
 
 		rowSelected = function(oldRowIndex, newRowIndex) {
-			if (oldRowIndex < 0) displayMessage("Selected row '" + this.getRowId(newRowIndex) + "'");
-			else displayMessage("Selected row has changed from '" + this.getRowId(oldRowIndex) + "' to '" + this.getRowId(newRowIndex) + "'");
+			displayMessage("正在编辑第" + this.getRowId(newRowIndex) + "行");
 		};
 
 		// render for the action column
@@ -158,7 +157,7 @@ EditableGrid.prototype.onloadJSON = function(url)
 {
 	// register the function that will be called when the XML has been fully loaded
 	this.tableLoaded = function() {
-		displayMessage("Grid loaded from JSON: " + this.getRowCount() + " row(s)");
+		displayMessage("数据已读取: 总共" + this.getRowCount() + "个条目");
 		this.initializeGrid();
 	};
 
