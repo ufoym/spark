@@ -4,42 +4,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>星火排课</title>
-
-        <!-- include javascript and css files for the EditableGrid library -->
-        <script src="editablegrid.js"></script>
-        <!-- [DO NOT DEPLOY] --> <script src="editablegrid_renderers.js" ></script>
-        <!-- [DO NOT DEPLOY] --> <script src="editablegrid_editors.js" ></script>
-        <!-- [DO NOT DEPLOY] --> <script src="editablegrid_validators.js" ></script>
-        <!-- [DO NOT DEPLOY] --> <script src="editablegrid_utils.js" ></script>
         <link rel="stylesheet" href="editablegrid.css" type="text/css" media="screen">
-
-        <!-- include javascript and css files for jQuery, needed for the datepicker and autocomplete extensions -->
-        <script src="jquery-1.6.4.min.js" ></script>
-        <script src="jquery-ui-1.8.16.custom.min.js" ></script>
         <link rel="stylesheet" href="jquery-ui-1.8.16.custom.css" type="text/css" media="screen">
-
-        <!-- include javascript and css files for the autocomplete extension -->
-        <script src="autocomplete.js" ></script>
         <link rel="stylesheet" href="autocomplete.css" type="text/css" media="screen">
-
-        <!-- include javascript and css files for this demo -->
-        <script src="demo.js" ></script>
         <link rel="stylesheet" type="text/css" href="demo.css" media="screen"/>
-        <script type="text/javascript">
-            window.onload = function() {
-                // you can use "datasource/demo.php" if you have PHP installed, to get live data from the demo.csv file
-                editableGrid.onloadJSON("out.json");
-            };
-        </script>
     </head>
 
     <body>
         <div id="wrap">
-
-            <!-- Feedback message zone -->
             <div id="message"></div>
-
-            <!--  Number of rows per page and bars in chart -->
             <div id="pagecontrol">
                 <label for="pagecontrol">每页显示条目数: </label>
                 <select id="pagesize" name="pagesize">
@@ -52,21 +25,29 @@
                     <option value="50">300</option>
                 </select>
             </div>
-
-            <!-- Grid filter -->
-            <label for="filter">搜索:</label>
+            <label for="filter">模糊搜索:</label>
             <input type="text" id="filter"/>
-
-            <!-- Grid contents -->
             <div id="tablecontent"></div>
-
-            <!-- Paginator control -->
             <div id="paginator"></div>
-
-            <!-- Edition zone (to demonstrate the "fixed" editor mode) -->
             <div id="edition"></div>
-
         </div>
+
+        <script src="editablegrid.js"></script>
+        <script src="editablegrid_renderers.js" ></script>
+        <script src="editablegrid_editors.js" ></script>
+        <script src="editablegrid_validators.js" ></script>
+        <script src="editablegrid_utils.js" ></script>
+        <!-- needed for the datepicker and autocomplete extensions -->
+        <script src="jquery-1.6.4.min.js" ></script>
+        <script src="jquery-ui-1.8.16.custom.min.js" ></script>
+        <script src="autocomplete.js" ></script>
+        <script src="demo.js" ></script>
+        <script type="text/javascript">
+            window.onload = function() {
+                editableGrid.onloadJSON("out.json");
+            };
+        </script>
+
     </body>
 
 </html>

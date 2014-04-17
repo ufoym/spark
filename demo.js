@@ -1,8 +1,8 @@
 // create our editable grid
 var editableGrid = new EditableGrid("DemoGridFull", {
-	enableSort: true, // true is the default, set it to false if you don't want sorting to be enabled
-	editmode: "absolute", // change this to "fixed" to test out editorzone, and to "static" to get the old-school mode
-	editorzoneid: "edition", // will be used only if editmode is set to "fixed"
+	enableSort: true,
+	editmode: "absolute",
+	editorzoneid: "edition",
 	pageSize: 20
 });
 
@@ -27,7 +27,6 @@ InfoHeaderRenderer.prototype = new CellRenderer();
 InfoHeaderRenderer.prototype.render = function(cell, value)
 {
 	if (value) {
-		// here we don't use cell.innerHTML = "..." in order not to break the sorting header that has been created for us (cf. option enableSort: true)
 		var link = document.createElement("a");
 		link.href = "javascript:alert('" + this.message + "');";
 		link.appendChild(this.infoImage);
@@ -40,75 +39,13 @@ InfoHeaderRenderer.prototype.render = function(cell, value)
 EditableGrid.prototype.initializeGrid = function()
 {
 	with (this) {
-
-		// // use a special header renderer to show an info icon for some columns
-		// setHeaderRenderer("age", new InfoHeaderRenderer("The age must be an integer between 16 and 99"));
-		// setHeaderRenderer("height", new InfoHeaderRenderer("The height is given in meters"));
-		// if (hasColumn('continent')) setHeaderRenderer("continent", new InfoHeaderRenderer("Note that the list of proposed countries depends on the selected continent"));
-		// setHeaderRenderer("email", new InfoHeaderRenderer("Note the validator used automatically when you specify your column as being of type email"));
-		// setHeaderRenderer("freelance", new InfoHeaderRenderer("This column tells if the person works as a freelance or as an employee"));
-
-		// // the list of allowed countries depend on the selected continent
-		// if (hasColumn('continent')) {
-
-		// 	setEnumProvider("country", new EnumProvider({
-
-		// 		// the function getOptionValuesForEdit is called each time the cell is edited
-		// 		// here we do only client-side processing, but you could use Ajax here to talk with your server
-		// 		// if you do, then don't forget to use Ajax in synchronous mode
-		// 		getOptionValuesForEdit: function (grid, column, rowIndex) {
-		// 			var continent = editableGrid.getValueAt(rowIndex, editableGrid.getColumnIndex("continent"));
-		// 			if (continent == "eu") return { "be" : "Belgique", "fr" : "France", "uk" : "Great-Britain", "nl": "Nederland"};
-		// 			else if (continent == "am") return { "br" : "Brazil", "ca": "Canada", "us" : "USA" };
-		// 			else if (continent == "af") return { "ng" : "Nigeria", "za": "South Africa", "zw" : "Zimbabwe" };
-		// 			return null;
-		// 		}
-		// 	}));
-		// }
-
-		// getColumn("country").cellEditor.minWidth = 105;
-
-		// // use a flag image to render the selected country
-		// setCellRenderer("country", new CellRenderer({
-		// 	render: function(cell, value) { cell.innerHTML = value ? "<img src='" + image("flags/" + value.toLowerCase() + ".png") + "' alt='" + value + "'/>" : ""; }
-		// }));
-
-		// // use autocomplete on firstname
-		// setCellEditor("firstname", new AutocompleteCellEditor({
-		// 	suggestions: ['Leonard','Kirsten','Scott','Wayne','Stephanie','Astra','Charissa','Quin','Baxter','Jaime',
-		// 	              'Isabella','Slade','Ariana','Mohammad','Candice','Leslie','Jamal','Shay','Duncan','Neil',
-		// 	              'Kermit','Yardley','Arden','Lacy','Alisa','Selma','Scott','Natalie','Acton','Yoko','Abel',
-		// 	              'Lewis','Kellie','Shad','Joan','Ifeoma','Paloma','Jarrod','Cailin','Risa','Rylee','Giacomo',
-		// 	              'Kuame','Samuel','Ariel','Maggy','Dennis','Jocelyn','Joan','Kermit','Zorita','Tanya','Jasmine',
-		// 	              'Aquila','Jena','Dorian','Stacy','Bradley','Ulla','Sybil','Barrett','Ursa','Ignatius',
-		// 	              'Lenore','Owen','Sage','Tyrone','George','Deacon','Serina','Brian','Alden','Chadwick',
-		// 	              'Oleg','Stewart','Cynthia','Coby','Briar','Kasimir','Margaret','Lesley','Kareem','Kirestin',
-		// 	              'Zephania','Lee','Vladimir','Daryl','Henry','Amena','Camille','Dorian','Brenna','Anne','Price',
-		// 	              'Kelly','Maxine','Joseph','Illiana','Virginia','Reese','Mark', 'Paul', 'Jackie', 'Greg',
-		// 	              'Matthew', 'Anthony', 'Claude', 'Louis', 'Marcello', 'Bernard', 'Betrand', 'Jessica', 'Patrick',
-		// 	              'Robert', 'John', 'Jack', 'Duke', 'Denise', 'Antoine', 'Coby', 'Rana', 'Jasmine', 'André',
-		// 	              'Martin', 'Amédé', 'Wanthus']
-		// }));
-
-		// // add a cell validator to check that the age is in [15, 100[
-		// addCellValidator("age", new CellValidator({
-		// 	isValid: function(value) { return value == "" || (parseInt(value) >= 16 && parseInt(value) < 100); }
-		// }));
-
 		// register the function that will handle model changes
 		modelChanged = function(rowIndex, columnIndex, oldValue, newValue, row) {
 			displayMessage("已将编号为" + this.getRowId(rowIndex) + "的条目的<strong>" + this.getColumnName(columnIndex) + "</strong>由<strong>" + oldValue + "</strong>改为<strong>" + newValue + "</strong>");
-			// if (this.getColumnName(columnIndex) == "continent") this.setValueAt(rowIndex, this.getColumnIndex("country"), ""); // if we changed the continent, reset the country
-   	    	// this.renderCharts();
 		};
 
 		// update paginator whenever the table is rendered (after a sort, filter, page change, etc.)
 		tableRendered = function() { this.updatePaginator(); };
-
-		// // update charts when the table is sorted or filtered
-		// tableFiltered = function() { this.renderCharts(); };
-		// tableSorted = function() { this.renderCharts(); };
-
 		rowSelected = function(oldRowIndex, newRowIndex) {
 			displayMessage("正在编辑编号为" + this.getRowId(newRowIndex) + "的条目");
 		};
@@ -117,13 +54,10 @@ EditableGrid.prototype.initializeGrid = function()
 		setCellRenderer("操作", new CellRenderer({render: function(cell, value) {
 			// this action will remove the row, so first find the ID of the row containing this cell
 			var rowId = editableGrid.getRowId(cell.rowIndex);
-
 			cell.innerHTML = "<a onclick=\"if (confirm('确定要删除这一项? ')) { editableGrid.remove(" + cell.rowIndex + "); } \" style=\"cursor:pointer\">" +
 							 "<img src=\"" + image("delete.png") + "\" border=\"0\" alt=\"delete\" title=\"删除\"/></a>";
-
-			// cell.innerHTML+= "&nbsp;<a onclick=\"editableGrid.duplicate(" + cell.rowIndex + ");\" style=\"cursor:pointer\">" +
-			//  "<img src=\"" + image("duplicate.png") + "\" border=\"0\" alt=\"duplicate\" title=\"Duplicate row\"/></a>";
-
+			cell.innerHTML+= "&nbsp;<a onclick=\"editableGrid.duplicate(" + cell.rowIndex + ");\" style=\"cursor:pointer\">" +
+							 "<img src=\"" + image("duplicate.png") + "\" border=\"0\" alt=\"duplicate\" title=\"复制\"/></a>";
 		}}));
 
 		// render the grid (parameters will be ignored if we have attached to an existing HTML table)
@@ -137,21 +71,8 @@ EditableGrid.prototype.initializeGrid = function()
 
 		// bind page size selector
 		$("#pagesize").val(pageSize).change(function() { editableGrid.setPageSize($("#pagesize").val()); });
-		// $("#barcount").val(maxBars).change(function() { editableGrid.maxBars = $("#barcount").val(); editableGrid.renderCharts(); });
 	}
 };
-
-// EditableGrid.prototype.onloadXML = function(url)
-// {
-// 	// register the function that will be called when the XML has been fully loaded
-// 	this.tableLoaded = function() {
-// 		displayMessage("Grid loaded from XML: " + this.getRowCount() + " row(s)");
-// 		this.initializeGrid();
-// 	};
-
-// 	// load XML URL
-// 	this.loadXML(url);
-// };
 
 EditableGrid.prototype.onloadJSON = function(url)
 {
@@ -164,49 +85,6 @@ EditableGrid.prototype.onloadJSON = function(url)
 	// load JSON URL
 	this.loadJSON(url);
 };
-
-EditableGrid.prototype.onloadHTML = function(tableId)
-{
-	// // metadata are built in Javascript: we give for each column a name and a type
-	// this.load({ metadata: [
-	//     { name: "name", datatype: "string", editable: true },
-	//     { name: "firstname", datatype: "string", editable: true },
-	//     { name: "age", datatype: "integer", editable: true },
-	//     { name: "height", datatype: "double(m,2)", editable: true, bar: false },
-	//     { name: "continent", datatype: "string", editable: true, values: {"eu": "Europa", "am": "America", "af": "Africa" } },
-	//     { name: "country", datatype: "string", editable: true },
-	//     { name: "email", datatype: "email", editable: true },
-	//     { name: "freelance", datatype: "boolean", editable: true },
-	//     { name: "action", datatype: "html", editable: false }
-	// ]});
-
-	// we attach our grid to an existing table
-	this.attachToHTMLTable(_$(tableId));
-	displayMessage("Grid attached to HTML table: " + this.getRowCount() + " row(s)");
-
-	this.initializeGrid();
-};
-
-// EditableGrid.prototype.duplicate = function(rowIndex)
-// {
-// 	// copy values from given row
-// 	var values = this.getRowValues(rowIndex);
-// 	values['name'] = values['name'] + ' (copy)';
-
-// 	// get id for new row (max id + 1)
-// 	var newRowId = 0;
-// 	for (var r = 0; r < this.getRowCount(); r++) newRowId = Math.max(newRowId, parseInt(this.getRowId(r)) + 1);
-
-// 	// add new row
-// 	this.insertAfter(rowIndex, newRowId, values);
-// };
-
-// // function to render our two demo charts
-// EditableGrid.prototype.renderCharts = function()
-// {
-// 	this.renderBarChart("barchartcontent", 'Age per person' + (this.getRowCount() <= this.maxBars ? '' : ' (first ' + this.maxBars + ' rows out of ' + this.getRowCount() + ')'), '教师', { limit: this.maxBars, bar3d: false, rotateXLabels: this.maxBars > 10 ? 270 : 0 });
-// 	this.renderPieChart("piechartcontent", 'Country distribution', '教师', '教师');
-// };
 
 // function to render the paginator control
 EditableGrid.prototype.updatePaginator = function()
