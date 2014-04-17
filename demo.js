@@ -86,6 +86,20 @@ EditableGrid.prototype.onloadJSON = function(url)
 	this.loadJSON(url);
 };
 
+EditableGrid.prototype.duplicate = function(rowIndex)
+{
+	// copy values from given row
+	var values = this.getRowValues(rowIndex);
+	values['name'] = values['name'] + ' (copy)';
+
+	// get id for new row (max id + 1)
+	var newRowId = 0;
+	for (var r = 0; r < this.getRowCount(); r++) newRowId = Math.max(newRowId, parseInt(this.getRowId(r)) + 1);
+
+	// add new row
+	this.insertAfter(rowIndex, newRowId, values);
+};
+
 // function to render the paginator control
 EditableGrid.prototype.updatePaginator = function()
 {
