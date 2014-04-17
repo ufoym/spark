@@ -24,12 +24,25 @@ with open(fn_in, 'r') as f:
                 data.append({'id': i, 'values': entry})
 
 with open(fn_json, 'w') as f:
-    json.dump({
+    obj = {
         'metadata': [{
             'name':col,
             'label':col,
             'datatype':'string',
             'editable':True
-        } for col in [u'编号'] + cols + [u'操作']],
+        } for col in cols],
         'data': data
-    }, f)
+    }
+    obj['metadata'].insert(0, {
+            'name':u'编号',
+            'label':u'编号',
+            'datatype':'integer',
+            'editable':False
+        })
+    obj['metadata'].append({
+            'name':u'操作',
+            'label':u'操作',
+            'datatype':'string',
+            'editable':False
+        })
+    json.dump(obj, f)
