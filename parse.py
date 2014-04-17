@@ -2,18 +2,19 @@ import json
 fn_in = 'in.csv'
 fn_json= 'out.json'
 
+select = [12, 3, 5, 4, 6, 8, 9, 2, 11, 15]
 cols = []
 data = []
 with open(fn_in, 'r') as f:
     for i, line in enumerate(f):
         line = line.decode('gbk').encode('utf-8')
         if i == 0:
-            for t in line.split(','):
-                t = t.strip()
-                if t != '':
-                    cols.append(t)
+            terms = line.split(',')
+            terms = [terms[s].strip() for s in select if terms[s].strip() != '']
+            cols = terms
         else:
-            terms = [t.strip() for t in line.split(',')[:len(cols)]]
+            terms = line.split(',')
+            terms = [terms[s].strip() for s in select]
             if ''.join(terms) != '':
                 entry = {'action': ''}
                 for col, term in zip(cols, terms):
