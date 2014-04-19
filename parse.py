@@ -4,18 +4,15 @@ import json
 fn_in = 'in.csv'
 fn_json= 'out.json'
 
-select = [12, 3, 5, 4, 6, 8, 9, 2, 11, 15]
-cols = []
+select = [3, 4, 6, 7, 8, 9, 10, 11, 12]
+cols = ['学生姓名', '年级', '科目', '单双周', '日期',
+        '上课时段', '课时', '任课老师', '学管师']
 data = []
 
 with open(fn_in, 'r') as f:
     for i, line in enumerate(f):
         line = line.decode('gbk').encode('utf-8')
-        if i == 0:
-            terms = line.split(',')
-            terms = [terms[s].strip() for s in select if terms[s].strip() != '']
-            cols = terms
-        else:
+        if i > 0:
             terms = line.split(',')
             terms = [terms[s].strip() for s in select]
             if ''.join(terms) != '':
