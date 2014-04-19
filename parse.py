@@ -9,13 +9,12 @@ cols = []
 data = []
 
 def add_term(terms, s):
+    term = terms[s].strip()
     if s == 5:
-        name = terms[s].strip()
         school = terms[4].strip()
         grade = terms[6].strip()
-        terms.append(name + '<br/>' + school + '<br/>' + grade)
+        terms.append(term + '<br/>' + school + '<br/>' + grade)
     else:
-        term = terms[s].strip()
         terms.append(term)
 
 with open(fn_in, 'r') as f:
