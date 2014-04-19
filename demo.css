@@ -68,7 +68,7 @@ table.testgrid th {
 	border: 1px solid #D5D5D5;
 	color: #555;
 	font-size: 11px;
-	text-align: left;
+	text-align:center;
 	padding-left: 5px;
 	padding-right: 0px;
 	padding-top: 5px;
@@ -79,6 +79,7 @@ table.testgrid th {
 table.testgrid td {
 	padding: 5px;
 	border: 1px solid #E0E0E0;
+	text-align:center;
 }
 
 #edition {
