@@ -8,14 +8,17 @@ select = [12, 3, 5, 8, 9, 2, 11, 15]
 cols = []
 data = []
 
-def add_term(terms, s):
-    term = terms[s].strip()
-    if s == 5:
-        school = terms[4].strip()
-        grade = terms[6].strip()
-        terms.append(term + '<br/>' + school + '<br/>' + grade)
-    else:
-        terms.append(term)
+def process_terms(raw_terms, s):
+    processed_terms = []
+    for s in select:
+        raw_term = raw_terms[s].strip()
+        if s == 5:
+            school = raw_terms[4].strip()
+            grade = raw_terms[6].strip()
+            processed_terms.append(raw_term + '<br/>' + school + '<br/>' + grade)
+        else:
+            processed_terms.append(raw_term)
+    return processed_terms
 
 with open(fn_in, 'r') as f:
     for i, line in enumerate(f):
@@ -26,11 +29,10 @@ with open(fn_in, 'r') as f:
             cols = terms
         else:
             terms = line.split(',')
-            for s in select:
-                add_term(terms, s)
-            if ''.join(terms) != '':
+            processed_terms = process_terms(terms, s)
+            if ''.join(processed_terms) != '':
                 entry = {u'操作': '', u'编号': i}
-                for col, term in zip(cols, terms):
+                for col, term in zip(cols, processed_terms):
                     entry[col] = term
                 data.append({'id': i, 'values': entry})
 
