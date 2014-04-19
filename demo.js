@@ -47,7 +47,7 @@ EditableGrid.prototype.initializeGrid = function()
 		// update paginator whenever the table is rendered (after a sort, filter, page change, etc.)
 		tableRendered = function() { this.updatePaginator(); };
 		rowSelected = function(oldRowIndex, newRowIndex) {
-			displayMessage("正在编辑编号为" + this.getRowId(newRowIndex) + "的条目");
+			// displayMessage("正在编辑编号为" + this.getRowId(newRowIndex) + "的条目");
 		};
 
 		// render for the action column

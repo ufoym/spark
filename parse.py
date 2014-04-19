@@ -5,7 +5,7 @@ fn_in = 'in.csv'
 fn_json= 'out.json'
 
 select = [3, 4, 6, 7, 8, 9, 10, 11, 12]
-cols = ['学生姓名', '年级', '科目', '单双周', '日期',
+cols = ['学生姓名', '年级', '科目', '单双', '日期',
         '上课时段', '课时', '任课老师', '学管师']
 data = []
 
@@ -35,5 +35,4 @@ with open(fn_json, 'w') as f:
     obj['metadata'][0]['editable'] = False
     obj['metadata'][-1]['datatype'] = 'html'
     obj['metadata'][-1]['editable'] = False
-    obj['metadata'][3]['datatype'] = 'html'
     json.dump(obj, f)
