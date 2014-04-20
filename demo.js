@@ -3,7 +3,7 @@ var editableGrid = new EditableGrid("DemoGridFull", {
 	enableSort: true,
 	editmode: "absolute",
 	editorzoneid: "edition",
-	pageSize: 20
+	pageSize: 15
 });
 
 // helper function to display a message
