@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html class="no-js">
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -19,6 +19,10 @@
 
     </head>
     <body data-ng-app="app" id="app" data-custom-background="" data-off-canvas-nav="">
+        <!--[if lt IE 9]>
+            <p class="browsehappy">本演示使用新的技术标准设计，时间有限并未照顾旧式浏览器， 请使用IE 9以上，或者<a href="http://browsehappy.com/">Chrome / Firefox / Safari / Opera 等浏览器</a>浏览~</p>
+        <![endif]-->
+
         <div data-ng-controller="AppCtrl">
             <div data-ng-hide="isSpecificPage()" data-ng-cloak="">
                 <section data-ng-include=" 'views/header.html' " id="header" class="top-header"></section>
